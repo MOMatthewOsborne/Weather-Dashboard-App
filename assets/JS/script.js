@@ -18,7 +18,7 @@ $.ajax({
 
         // console.log(response)
 
-        $("#City1").html(response.name + "<img src=http://openweathermap.org/img/w/" + response.weather[0].icon + ".png>");
+        $("#City1").html(response.name + " " + moment().format("(D/MM/YY)") + "<img src=http://openweathermap.org/img/w/" + response.weather[0].icon + ".png>");
         $("#temp1").text("Temperature: " + convertKtoC(response.main.temp).toFixed(2) + "C");
         $("#wind1").text("Wind: " + response.wind.speed + " KPH");
         $("#humidity1").text("Humidity: " + response.main.humidity + "%");
