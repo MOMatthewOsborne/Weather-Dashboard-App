@@ -1,11 +1,22 @@
+var searchInput = document.querySelector("#search-input");
+var btnIcon = document.querySelector("search-button");
+var searchedCities = [];
+
 var apiKey = '&appid=88adb8f5ba3b0398e706599889afef78'
-var cityName = "paris"
+var cityName = localStorage.getItem("cities")
 var queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + cityName + apiKey;
 
 function convertKtoC(kTemp) {
     kTemp -= 273.15
     return kTemp
 }
+
+function citySave() {
+
+    localStorage.setItem("cities", searchInput.value())
+}
+
+btnIcon.addEventListener("click", citySave);
 
 // var lat = "52.205276";
 // var lon = "0.119167";
