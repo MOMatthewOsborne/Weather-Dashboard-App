@@ -1,0 +1,15 @@
+/* Colour of header bar */
+.weather-header {
+    background-image: linear-gradient(to right, #1877F2, darkblue);
+}
+
+#forecast {
+    display: flex;
+    justify-content: space-between;
+    font-weight: bold;
+}
+
+button {
+    padding: 10px;
+
+}

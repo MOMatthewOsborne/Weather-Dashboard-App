@@ -15,8 +15,14 @@ function convertKtoC(kTemp) {
     return kTemp
 }
 
+function capitalise(city) {
+    city = city.charAt(0).toUpperCase() + city.slice(1);
+    return city
+}
+
 function addButton() {
-    var button = $("<button>").text(cities[cities.length - 1]).attr("id", cities[cities.length - 1]).on("click", function () {
+    var mostRecentCity = cities[cities.length - 1]
+    var button = $("<button>").text(capitalise(cities[cities.length - 1])).attr("id", cities[cities.length - 1]).on("click", function () {
         console.log(this)
         queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + $(this).attr("id") + apiKey;
 
@@ -45,7 +51,7 @@ btnIcon.addEventListener("click", function (e) {
 
 for (var i = 0; i < cities.length; i++) {
 
-    var button = $("<button>").text(cities[i]).attr("id", cities[i]).on("click", function () {
+    var button = $("<button>").text(capitalise(cities[i])).attr("id", cities[i]).on("click", function () {
         console.log(this)
         queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + $(this).attr("id") + apiKey;
 
@@ -115,4 +121,5 @@ function getForecast(cityName) {
             $("#wind6").text("Wind: " + response.list[32].wind.speed + " KPH");
             $("#humidity6").text("Humidity: " + response.list[32].main.humidity + "%");
         })
+
 }
