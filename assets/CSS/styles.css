@@ -14,6 +14,7 @@ button {
 
 }
 
+/* This is for the dynamically created buttons */
 .cityButton {
 
     margin-top: 10px;
@@ -21,8 +22,7 @@ button {
     font-size: 20px;
 }
 
-
-
+/* This is for the clear list button */
 #clearButton {
     margin-top: 10px;
     margin-bottom: 10px;

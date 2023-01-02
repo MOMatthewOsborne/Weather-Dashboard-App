@@ -1,3 +1,4 @@
+// Hides boxes when they have no content
 $("#today").hide()
 $("#forecast").hide()
 
@@ -10,17 +11,17 @@ var clearBtn = document.querySelector("#clearButton")
 var apiKey = '&appid=88adb8f5ba3b0398e706599889afef78'
 
 
-
+// function to convert temp from k to c
 function convertKtoC(kTemp) {
     kTemp -= 273.15
     return kTemp
 }
-
+// function to capitalise the first letter of a word
 function capitalise(city) {
     city = city.charAt(0).toUpperCase() + city.slice(1);
     return city
 }
-
+// function to create button with link and text
 function addButton() {
 
     var button = $("<button>").text(capitalise(cities[cities.length - 1])).attr({ "id": cities[cities.length - 1], "class": "cityButton" }).on("click", function () {
@@ -33,19 +34,19 @@ function addButton() {
 
     $("#history").prepend(button)
 }
-
+// event listener for clear button
 clearBtn.addEventListener("click", function (e) {
     e.preventDefault();
     localStorage.clear()
     location.reload()
 })
-
+// event listener for search button
 btnIcon.addEventListener("click", function (e) {
     e.preventDefault();
 
     var searchInput = document.querySelector("#search-input").value;
     console.log(searchInput)
-
+    // Checks if city is already in list
     if (!cities.includes(searchInput)) {
         cities.push(searchInput)
         localStorage.setItem("cities", JSON.stringify(cities))
@@ -56,7 +57,7 @@ btnIcon.addEventListener("click", function (e) {
     queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + searchInput + apiKey;
     getWeather(queryURL);
 })
-
+// Creates buttons from array
 for (var i = 0; i < cities.length; i++) {
 
     var button = $("<button>").text(capitalise(cities[i])).attr({ "id": cities[i], "class": "cityButton" }).on("click", function () {
@@ -66,17 +67,14 @@ for (var i = 0; i < cities.length; i++) {
         getWeather(queryURL);
 
     })
-
+    // Adds button to top of list
     $("#history").prepend(button)
 
 
 }
-
-
-
-// var lat = "52.205276";
-// var lon = "0.119167";
+// Ajax for getting todays weather
 function getWeather(queryURL) {
+    // Unhides div
     $("#today").show()
     $.ajax({
         url: queryURL,
@@ -93,6 +91,7 @@ function getWeather(queryURL) {
             getForecast(response.name)
         })
 }
+// For getting five day forecast
 function getForecast(cityName) {
     var fiveDayUrl = "https://api.openweathermap.org/data/2.5/forecast?q=" + cityName + apiKey;
 
@@ -101,8 +100,8 @@ function getForecast(cityName) {
         method: "GET"
     })
         .then(function (response) {
-
-            console.log(response)
+            // Five day forecast jQuery
+            // Unhides div
             $("#forecast").show()
             $("#Date2").html(moment().add(1, "days").format("D/MM/YY") + "<img src=http://openweathermap.org/img/w/" + response.list[0].weather[0].icon + ".png>");
             $("#temp2").text("Temp: " + convertKtoC(response.list[0].main.temp).toFixed(2) + "C");
