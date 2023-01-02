@@ -5,6 +5,7 @@ var btnIcon = document.querySelector("#search-button");
 var cities = JSON.parse(localStorage.getItem("cities")) || []
 var historyBar = document.querySelector("#history")
 var queryURL;
+var clearBtn = document.querySelector("#clearButton")
 
 var apiKey = '&appid=88adb8f5ba3b0398e706599889afef78'
 
@@ -21,8 +22,8 @@ function capitalise(city) {
 }
 
 function addButton() {
-    var mostRecentCity = cities[cities.length - 1]
-    var button = $("<button>").text(capitalise(cities[cities.length - 1])).attr("id", cities[cities.length - 1]).on("click", function () {
+
+    var button = $("<button>").text(capitalise(cities[cities.length - 1])).attr({ "id": cities[cities.length - 1], "class": "cityButton" }).on("click", function () {
         console.log(this)
         queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + $(this).attr("id") + apiKey;
 
@@ -32,6 +33,12 @@ function addButton() {
 
     $("#history").prepend(button)
 }
+
+clearBtn.addEventListener("click", function (e) {
+    e.preventDefault();
+    localStorage.clear()
+    location.reload()
+})
 
 btnIcon.addEventListener("click", function (e) {
     e.preventDefault();
@@ -43,6 +50,7 @@ btnIcon.addEventListener("click", function (e) {
         cities.push(searchInput)
         localStorage.setItem("cities", JSON.stringify(cities))
         addButton()
+
     }
 
     queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + searchInput + apiKey;
@@ -51,7 +59,7 @@ btnIcon.addEventListener("click", function (e) {
 
 for (var i = 0; i < cities.length; i++) {
 
-    var button = $("<button>").text(capitalise(cities[i])).attr("id", cities[i]).on("click", function () {
+    var button = $("<button>").text(capitalise(cities[i])).attr({ "id": cities[i], "class": "cityButton" }).on("click", function () {
         console.log(this)
         queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + $(this).attr("id") + apiKey;
 
